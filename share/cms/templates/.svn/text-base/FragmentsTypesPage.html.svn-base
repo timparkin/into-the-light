@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+
+  <h2>Fragment Types</h2>
+
+  <h3>Items</h3>
+  <form n:render="contentItems_actions" method="post">
+    <n:invisible n:data="contentItems" n:render="contentItems" />
+    <div class="table_actions">
+      <input type="submit" name="delete" value="Delete" />
+    </div>    
+  </form>
+
+  <h2>Add New Fragment Type</h2>
+  <form n:render="form newItem" />
+  
+</n:invisible>

@@ -1,0 +1,5 @@
+The following data has been received from the Into The Light site
+
+#for item in data
+${item.key} : ${item.value}
+#end

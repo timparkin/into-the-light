@@ -1,0 +1,193 @@
+form {
+  margin: 0 0 1em 0;
+  border: 0;
+  padding: 0;
+}
+
+form fieldset {
+  border: 1px solid #dddfc3;
+  padding: 1em;
+}
+
+form .inputs input, form .actions input, form .table_actions input {
+  border: 1px solid #dddfc3;
+}
+
+form .checkbox .inputs input, form .checkboxmultichoice .inputs input,
+    form .radiochoice .inputs input {
+  border: 0;
+}
+
+form .field {
+  clear: left;
+  margin-bottom: 0em;
+  margin-top:0.3em;
+}
+
+form .field.richtexttype {
+  margin-bottom: 0.55em;
+}
+
+form .group {
+  clear: both;
+}
+
+form label {
+  float: left;
+  clear: left;
+  width: 10em;
+  
+}
+
+form .inputs label {
+  display: inline;
+  float: none;
+  clear: none;
+}
+
+form .inputs, .nevow-form .message, .nevow-form .description {
+  margin-left: 10.5em;
+  padding: 0;
+  color: #777;
+}
+
+form .actions {
+  padding-left: 10.5em;
+  padding-top: 1em;
+  margin-top:0.5em;
+  border-top: 1px dashed #dddfc3;
+}
+
+form .actions input, form .table_actions input
+{
+border: 3px double #999999;
+border-top-color: #CCCCCC;
+border-left-color: #CCCCCC;
+padding: 0.25em;
+background-color: #FFFFFF;
+background-image: url(../images/background_form_element.gif);
+background-repeat: repeat-x;
+color: #333333;
+font-size: 90%;
+font-weight: bold;
+font-family: Verdana, Helvetica, Arial, sans-serif;
+
+}
+
+button {
+border: 1px solid #999999;
+border-top-color: #CCCCCC;
+border-left-color: #CCCCCC;
+padding: 0.25em;
+background-color: #FFFFFF;
+background-image: url(../images/background_form_element.gif);
+background-repeat: repeat-x;
+color: #333333;
+font-size: 70%;
+font-weight: normal;
+font-family: Helvetica, Arial, sans-serif;
+margin: 2px 4px 2px 0;
+
+
+}
+
+
+.nevow-form .field.required label {
+  font-weight: bold;
+}
+
+.nevow-form .field.required .inputs label {
+  font-weight: normal;
+}
+
+.nevow-form .message {
+  color: #900;
+  font-weight: bold;
+}
+
+.nevow-form .errors {
+  padding: 0.5em 1em 0 1em;
+  border: 1px solid #efe6e1;
+  background: #fff0f0;
+  margin-bottom: 2em;
+}
+.nevow-form .preview-show {
+  display: block;
+}
+
+.nevow-form .preview-hidden {
+  display: none;
+}
+
+.nevow-form .checkboxtreemultichoice ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.nevow-form .checkboxtreemultichoice ul ul li {
+  margin-top: 0.5em;
+  margin-left: 2em;
+}
+
+.nevow-form .textinput input {
+  width: 50%;
+}
+
+.nevow-form  textarea {
+  width: 80%;
+  height: 10em;
+  clear:right;
+  border: 1px solid #CCC;
+}
+
+
+.nevow-form .richtextarea textarea {
+  width: 80%;
+  height: 15em;
+  clear:right;
+  border: 1px solid #CCC;
+}
+
+.nevow-form .richtextarea .preview-frame {
+  height: 500px;
+  width: 80%;
+  border: 2px solid #000;
+  padding:5px;
+  overflow:auto;
+}
+
+/* Clearfix */
+.nevow-form .inputs:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.nevow-form .inputs {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .nevow-form .inputs {height: 1%;}
+.nevow-form .inputs {display: block;}
+/* End hide from IE-mac */
+
+.richtexttype select {
+  font-size: 75%;
+  margin-bottom:2px;
+}
+
+.fileuploadwidget p {
+  margin-bottom: 2px;
+}
+
+.fileuploadwidget input {
+  border: 1px solid #CCC;
+}
+
+.fileuploadwidget .description {
+  margin-bottom: 1em;
+}
+
+

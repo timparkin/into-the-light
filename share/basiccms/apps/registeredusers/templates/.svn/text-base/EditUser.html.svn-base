@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <h2>Edit Registered User</h2>
+  <form n:render="form user"/>
+  <script type="text/javascript">
+    //<![CDATA[
+    MochiKit.DOM.focusOnLoad('user-firstName');
+    //]]>
+  </script>
+</n:invisible>

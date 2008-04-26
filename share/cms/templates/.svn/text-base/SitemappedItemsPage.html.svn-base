@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+
+  <script type="text/javascript">
+      
+$(document).ready( function (){
+    $('#javascriptableactions').hide();
+    <n:invisible n:render="treetablemap" />
+    var options = {openImg: "/static/images/tv-collapsable.gif", shutImg: "/static/images/tv-expandable.gif", leafImg: "/static/images/tv-item.gif", lastOpenImg: "/static/images/tv-collapsable-last.gif", lastShutImg: "/static/images/tv-expandable-last.gif", lastLeafImg: "/static/images/tv-item-last.gif", vertLineImg: "/static/images/vertline.gif", blankImg: "/static/images/blank.gif", collapse: false, column: 2, striped: false, highlight: false, onselect: function(target){window.status = "You clicked "+target.html();}};
+    $("table").jqTreeTable(map, options);
+    
+    $('span.clickedit').click( function() {
+      if (!$(this).find('input').is('input')) {
+        text = $(this).text();
+        data = $(this).attr('title').split(' ');
+        id = data[1]
+        parameter = data[2]
+        if (parameter == 'move') {
+          $(this).html('<input value="-" name="tablefield-'+parameter+'-'+id+'" type="hidden" /><input type="text" value="" name="tablefield-'+parameter+'-'+id+'" style="font-size: 90%;width:3em;border:1px solid #AAA;" />');
+
+        } else if (parameter == 'level')  {
+          $(this).html('<input value="'+text+'" name="tablefield-'+parameter+'-'+id+'" type="hidden" /><input type="text" value="'+text+'" name="tablefield-'+parameter+'-'+id+'" style="font-size: 90%;width:3em;border:1px solid #AAA;" />');
+        } else {
+          $(this).html('<input value="'+text+'" name="tablefield-'+parameter+'-'+id+'" type="hidden" /><input type="text" value="'+text+'" name="tablefield-'+parameter+'-'+id+'" style="font-size: 90%;width:12em;border:1px solid #AAA;" />');
+        };
+          $(this).keydown(function(event){
+		if(event.keyCode == 27){ // Capture Esc key-press to quit in between
+		   $(this).html(text);
+		}
+          });        
+      };
+      $(this).find('input').focus();
+    });
+    $('span.linkclickedit').click( function() {
+      if (!$(this).find('input').is('input')) {
+        text = $(this).find('a').text();
+        data = $(this).find('a').attr('title').split(' ');
+        id = data[1]
+        parameter = data[2]
+        if (parameter == 'level' || parameter == 'move') {
+          $(this).html('<input value="'+text+'" name="tablefield-'+parameter+'-'+id+'" type="hidden" /><input type="text" value="'+text+'" name="tablefield-'+parameter+'-'+id+'" style="font-size: 90%;width:3em;border:1px solid #AAA;" />');
+        } else {
+          $(this).html('<input value="'+text+'" name="tablefield-'+parameter+'-'+id+'" type="hidden" /><input type="text" value="'+text+'" name="tablefield-'+parameter+'-'+id+'" style="font-size: 90%;width:12em;border:1px solid #AAA;" />');
+        };
+      };
+          $(this).keydown(function(event){
+		if(event.keyCode == 27){ // Capture Esc key-press to quit in between
+		   $(this).html(text);
+		}
+          });      
+      $(this).find('input').focus();
+    });
+    
+});    
+   
+  </script>
+  <h2>Pages</h2>
+
+  <form n:render="contentItems_actions" method="post" class="sitemappeditems">
+    <n:invisible n:data="contentItems" n:render="contentItems" />
+    <div class="table_actions">
+      <div style="margin-top:10px">
+      <input type="submit" name="applychanges" value="Apply Changes" />
+      <input type="submit" name="delete" value="Delete selected" />
+      </div>  
+      <div id="javascriptableactions">
+      <div style="margin-top:0px">
+      <label for="label" style="float:none;margin-right:10px;">Label</label><input type="text" name="label" value="" class="notaction" />
+      <label for="level" style="float:none;margin-right:10px;">Level</label><input type="text" name="level" value="" class="notaction" /><br />
+      <input type="submit" name="applyLabelAndLevel" value="Apply Label and/or Level to selected" style="margin-top:5px;" />
+      </div>
+      <div style="margin-top:30px">
+      <label for="from" style="float:none;margin-right:10px;">Url From</label><input type="text" name="from" value="" class="notaction" />
+      <label for="to" style="float:none;margin-right:10px;">Url To</label><input type="text" name="to" value="" class="notaction" /><br />
+      <input type="submit" name="updateUrls" value="change urls" style="margin-top:5px;" />
+      </div>
+      <div style="margin-top:30px">
+      <input type="submit" name="move" value="Move selected by" />
+      <input type="text" name="moveAmount" value="" style="width:3em;" class="notaction" />
+      </div>
+      </div>
+    
+    </div>
+  </form>
+
+  <h2>Add New Page</h2>
+  <form n:render="form newItem" />
+  
+</n:invisible>

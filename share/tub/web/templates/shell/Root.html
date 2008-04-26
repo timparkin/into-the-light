@@ -1,0 +1,509 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+<h2>Quick Links</h2>
+<p>These will get to to the right page in the right format quickly - bookmark if you like</p>
+<ul>
+<li><a href="/content/Blog%20Entry?items-sort=date&amp;items-dir=desc&amp;perPage=50">All Blog Entries by Date</a></li>
+</ul>
+
+<p>The project site is at <a href="http://timparkin.clientsection.com/clients">http://timparkin.clientsection.com/clients</a> which you can use to record more complicated problems or any ideas to improve the system</p>
+
+<hr />
+
+
+<h1>Website Usage Notes</h1>
+
+<h2>Adding links to blog images</h2>
+
+<p>you can convert the image to a link on a blog post by changing ..</p>
+
+<p><code>![system asset](galleryimage://53 maxwidth=300 maxheight=400)</code></p>
+
+<p>to</p>
+
+<p><code>![system asset](galleryimage://53 maxwidth=300 maxheight=400)(/gallery/mystery/islandsinthesky)</code></p>
+
+<p>and have it clickable..</p>
+
+<h2>Adding Summaries to Blog Posts</h2>
+
+<p>The RSS feed uses the summary field in the blog post - don't forget to include it otherwise RSS users don't get a preview.</p>
+
+<hr />
+
+<h1>Markdown Cheatsheet</h1>
+
+<p> We use a text format for most of the content which allows you to create content without worrying about html and also ensuring that the generated pages are search engine friendly and will work as expected in most browsers</p>
+
+
+<h2>Headers</h2>
+
+<table class="cheatsheet" summary="How to make headers with Markdown">
+    <colgroup>
+
+        <col class="markdown-input" />
+        <col class="output" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+<pre><code># Level 1 Header (H1)
+## Level 2 Header (H2)
+##### Level 5 Header (H5)
+</code></pre>
+            </td>
+            <td>
+                <samp>
+                    </samp><h1>Level 1 Header (H1)</h1>
+
+                    <h2>Level 2 Header (H2)</h2>
+                    <h5>Level 5 Header (H5)</h5>
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Paragraphs</h2>
+
+<table class="cheatsheet" summary="How to make paragraphs with Markdown">
+    <colgroup>
+        <col class="markdown-input" />
+        <col class="output" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+<pre><code>&nbsp;
+One or more consecutive lines of text
+separated by one or more blank lines.
+&nbsp;
+This is another paragraph.
+&nbsp;</code></pre>
+            </td>
+
+            <td>
+                <p>
+                    One or more consecutive lines of text separated by one or more blank lines.
+                </p>
+                <p>
+                    This is another paragraph.
+                </p>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <strong>Line Break</strong>
+                <p>To create a line break, end a line in a paragraph with two or more spaces.</p>
+                <pre><code>I am a sentence with&nbsp;&nbsp;
+a line break.</code></pre>
+            </td>
+
+            <td>
+
+                <p>I am a sentence with<br />a line break.</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Lists</h2>
+
+<table class="cheatsheet" summary="How to make lists with Markdown">
+    <colgroup>
+
+        <col class="markdown-input" />
+        <col class="output" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <strong>Unordered lists</strong>
+                <p>Asterisks, plus signs or dashes:</p>
+<pre><code>* Red
+* Green
+* Blue
+
++ Red
++ Green
++ Blue
+
+- Red
+- Green
+- Blue</code></pre>
+            </td>
+
+            <td>
+                <ul>
+                    <li>Red</li>
+                    <li>Green</li>
+                    <li>Blue</li>
+                </ul>
+                <ul>
+
+                    <li>Red</li>
+                    <li>Green</li>
+                    <li>Blue</li>
+                </ul>
+                <ul>
+                    <li>Red</li>
+                    <li>Green</li>
+
+                    <li>Blue</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Ordered lists</strong>
+<pre><code>1. Bird
+2. McHale
+3. Parish</code></pre>
+
+            </td>
+            <td>
+                <ol>
+                    <li>Bird</li>
+                    <li>McHale</li>
+                    <li>Parish</li>
+                </ol>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Definition lists</strong>
+<pre><code>Term
+: Definition</code></pre>
+                <em>Multiple definitions</em>
+<pre><code>Apple
+: Pomaceous fruit of plants of the genus Malus.
+: An american computer company.</code></pre>
+
+                <em>Multiple terms</em>
+<pre><code>Term 1
+Term 2
+: Definition</code></pre>
+            </td>
+            <td>
+                <dl>
+                    <dt>Term</dt>
+                    <dd>Definition</dd>
+
+                </dl>
+
+                <dl>
+                    <dt>Apple</dt>
+                    <dd>Pomaceous fruit of plants of the genus Malus.</dd>
+                    <dd>An american computer company.</dd>
+                </dl>
+
+                <dl>
+                    <dt>Term 1</dt>
+                    <dt>Term 2</dt>
+                    <dd>Definition</dd>
+                </dl>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<h2>Emphasis</h2>
+
+<table class="cheatsheet" summary="How to emphasize words with Markdown">
+    <colgroup>
+        <col class="markdown-input" />
+        <col class="output" />
+    </colgroup>
+    <thead>
+
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Italic (em tag)</strong>
+
+<pre><code>I am *emphasized*
+
+I am _emphasized_</code></pre>
+             </td><td>
+                <p>
+                    I am <em>emphasized</em>
+                </p>
+                <p>
+                    I am <em>emphasized</em>
+
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Bold (strong tag)</strong>
+<pre><code>I am **bold**
+
+I am __bold__</code></pre>
+            </td>
+
+            <td>
+                <p>
+                    I am <strong>bold</strong>
+                </p>
+                <p>
+                    I am <strong>bold</strong>
+                </p>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Links</h2>
+
+<table class="cheatsheet" summary="How to make links with Markdown">
+    <colgroup>
+        <col class="markdown-input" />
+        <col class="output" />
+
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><strong>Inline Method</strong>
+<pre><code>This is [an example](http://example.com/ "Optional Title")
+inline link.</code></pre>
+            </td>
+
+            <td><p>This is <a linkindex="1" href="http://example.com/" title="Optional Title">an example</a> inline link. </p>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td><strong>Reference Method</strong>
+                <p>The reference method has two parts: The link definition and the link itself.
+                The link definition may be placed anywhere on the page and it will not show up on the page  itself.</p>
+                <dl>
+                    <dt>Link Definition</dt>
+                    <dd><pre><code>[id]: http://example.com/ "Optional Title Here"</code></pre></dd>
+
+                    <dt>Link</dt>
+                    <dd><pre><code>This is [an example][id] reference-method link.</code></pre></dd>
+                </dl>
+
+                <p>If you don't define an id in the link, like this: <code>[an example][]</code>, then you  use the
+                    link name instead of the id for the Link Definition, like this: <code>[an example]:     http://example.com/ "Optional Title Here"</code>.
+                </p>
+
+            </td>
+
+            <td><p>This is <a linkindex="2" href="http://example.com/" title="Optional Title Here">an example</a>         reference-method link.</p></td>
+        </tr>
+        <tr>
+            <td><strong>Automatic Links</strong>
+<pre><code>&lt;http://example.com/&gt;
+
+&lt;address@example.com&gt;&lt;/code&gt;</code></pre>
+            </td>
+
+            <td><p><a linkindex="3" href="http://example.com">http://example.com/</a></p>
+                <p><a href="mailto:address@example.com">address@example.com</a></p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<h2>Code Blocks</h2>
+
+<table class="cheatsheet" summary="How to make code blocks with Markdown">
+    <colgroup>
+        <col class="markdown-input" />
+        <col class="output" />
+    </colgroup>
+    <thead>
+
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+
+                <p>Indent with 4 spaces.</p>
+<pre><code>This is a normal paragraph.
+
+    This is a code block</code></pre>
+            </td>
+
+            <td>
+                <p>This is a normal paragraph.</p>
+                <pre><code>This is a code block</code></pre>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+<h2>Tables</h2>
+
+<table class="cheatsheet" summary="How to make tables with Markdown">
+    <colgroup>
+        <col class="markdown-input" />
+        <col class="output" />
+    </colgroup>
+
+    <thead>
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td>
+
+<pre><code>| First Header  | Second Header |
+| ------------- | ------------- |
+| Row1 Cell1    | Row1 Cell2    |
+| Row2 Cell1    | Row2 Cell2    |</code></pre>
+            </td>
+            <td>
+                <table summary="Sample output for a table">
+                    <tbody><tr>
+                        <th>First Header</th>
+                        <th>Second Header</th>
+
+                    </tr>
+                    <tr>
+                        <td>Row1 Cell1</td>
+                        <td>Row1 Cell2</td>
+                    </tr>
+                    <tr>
+                        <td>Row2 Cell1</td>
+
+                        <td>Row2 Cell2</td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Literal Characters</h2>
+
+<p>
+    The following characters sometimes have special meanings in Markdown. You can make sure Markdown
+    doesn't interpret these characters by placing a backslash in front of them.
+</p>
+
+<ul>
+    <li>\ backslash</li>
+    <li>` backtick</li>
+    <li>* asterisk</li>
+    <li>_ underscore</li>
+
+    <li>{} curly braces</li>
+    <li>[] square brackets</li>
+    <li>() parentheses</li>
+    <li># hash mark</li>
+    <li>+ plus sign</li>
+    <li>- minus sign (hyphen)</li>
+
+    <li>. dot</li>
+    <li>! exclamation mark</li>
+    <li>: colon</li>
+    <li>| pipe</li>
+</ul>
+
+<table class="cheatsheet" summary="How to escape special characters with Markdown">
+    <colgroup>
+
+        <col class="markdown-input" />
+        <col class="output" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Markdown Input</th>
+            <th>Output</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+<pre><code>\\
+\`
+\*
+\_
+\{\}
+\[\]
+\(\)
+\#
+\+
+\-
+\.
+\!
+\:
+\|</code></pre>
+</td>
+            <td>
+            <code><pre>
+\
+`
+*
+_
+{}
+[]
+()
+#
++
+-
+.
+!
+:
+|
+</pre></code>
+            </td>
+
+        </tr>
+    </tbody>
+</table>     
+</n:invisible>

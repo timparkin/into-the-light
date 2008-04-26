@@ -1,0 +1,42 @@
+.tabular-view {
+  border-collapse: collapse;
+  border: 3px double #ccc;
+  border-spacing: 0px;
+  margin-right: 1em;
+  float: left;
+}
+
+.tabular-view th {
+  text-align: left;
+}
+
+.tabular-view td, table th {
+  padding: 0.2em 1em 0.2em 0.25em;
+}
+
+.tabular-view .header th {
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
+}
+
+.tabular-view .footer td {
+  background-color: #eee;
+}
+
+.tabular-view .data td {
+  border-bottom: 1px solid #ddd;
+}
+
+.tabular-view .start, .tabular-view .previous, .tabular-view .next {
+  margin-right: 0.5em;
+}
+
+.tabular-view .page-x-of-y {
+  float: left;
+}
+
+.tabular-view .paging-controls {
+  margin-left: 3em;
+  float: right;
+  white-space: nowrap;
+}

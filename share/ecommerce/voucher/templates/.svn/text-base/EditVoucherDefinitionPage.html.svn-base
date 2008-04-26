@@ -1,0 +1,8 @@
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" >
+
+  <h2>Voucher</h2>
+  <form n:render="form voucher_definition" />
+
+  <table n:data="vouchers" n:render="vouchers" />
+
+</n:invisible>

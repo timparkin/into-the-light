@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <head>
+    <title>Item Selection</title>
+    <link href="/styles/basic.css" type="text/css" rel="stylesheet" />
+    <link href="/styles/nevow-form.css" type="text/css" rel="stylesheet" />
+    <link href="/styles/forms.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/static/js/jquery-1.1.3.1.pack.js"></script>    
+    <style type="text/css">
+      body {
+        padding: 1em 0 0 0;
+      }
+    </style>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[
+      function isOptionalNumeric(element, message) {
+        var domElement = $('#'+element)
+        var value = domElement.val();
+        if(value.length == 0) {
+          return true;
+        }
+        var numericExpression = /^[0-9]+$/;
+        if(value.match(numericExpression)) {
+          return true;
+        }
+        else {
+          domElement.focus();
+          return false;
+        }
+      }
+
+      function hasValue(value) {
+        if(value == null || value.length == 0) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      };
+      
+      function undefinedToNull(val) {
+        if ((typeof(val) == 'undefined') || (val == '')) {
+          return null;
+        } else {
+          return val;
+        }
+      }
+
+      function encode() {
+        var rv = new Object();
+        rv.categories = new Array();
+        // This seems to just be used to flatten the rv object at some point? why not on the return?
+        rv.toString = function() {
+            var rv = new Array();
+            if(this.type != null) {
+                rv.push('type='+this.type);
+            }
+            if(this.maxPublishedAge != null) {
+                rv.push('maxPublishedAge='+this.maxPublishedAge);
+            }
+            if(this.maxItems != null) {
+                rv.push('maxItems='+this.maxItems);
+            }
+            if(this.template != null) {
+                rv.push('template='+this.template);
+            }
+            if(this.name != null) {
+                rv.push('name='+this.name);
+            }
+            if(this.paging != null) {
+                rv.push('paging='+this.paging);
+            }
+            if(this.categories.length != 0) {
+                rv.push('categories='+this.categories.join(','));
+            }
+            return rv.join(';');
+        }
+        rv.type = undefinedToNull( $('#itemSelection-type').val() );
+        rv.maxPublishedAge = undefinedToNull( $('#itemSelection-maxPublishedAge').val() )
+        rv.maxItems = undefinedToNull( $('#itemSelection-maxItems').val() )
+        rv.template = undefinedToNull( $('#itemSelection-template').val() )
+        rv.name = undefinedToNull( $('#itemSelection-name').val() )
+        rv.paging = undefinedToNull( $('#itemSelection-paging').val() )
+        rv.categories.push( undefinedToNull( $('#itemSelection-categories').val() ) )
+ 
+        return rv;
+      }
+
+      function validForm() {
+        if(!isOptionalNumeric('itemSelection-maxPublishedAge', "Max Published Age must be numeric" )) {
+          return false;
+        }
+        if(!isOptionalNumeric('itemSelection-maxItems', "Max Items must be numeric" )) {
+          return false;
+        }
+        if(!isOptionalNumeric('itemSelection-paging', "Paging must be numeric" )) {
+          return false;
+        }
+        return true;
+      }
+
+      function updateOwner() {
+        if(!validForm()) {
+          return;
+        }
+        var rv = encode();
+        window.callback(rv);
+        window.close();
+      }
+
+      function mapSubmit() {
+        // Make clicking the submit button call updateOwner, rather than submiting the form.
+        $('#itemSelection-action-submit').each( function() {
+          $(this).after('<input type="button" name="" value="Choose items..." id="itemSelection-action-submit" />').remove();
+          
+        });
+        $('#itemSelection-action-submit').click(updateOwner);
+      }
+
+      function typeChanged() {
+        var templates = getTemplates($('#itemSelection-type').val());
+        $('#itemSelection-template').empty();
+        for( var i = 0 ; i < templates.length ; i++ ) {
+          $('#itemSelection-template').append('<option value="'+templates[i][0]+'">'+templates[i][1]+'</option>');
+        }
+      }
+
+      function updateSelects() {
+        $('#itemSelection-type').change(typeChanged);
+        typeChanged();
+      }
+
+        //]]>
+    </script>
+    <n:invisible n:render="item_template_js" />
+  </head>
+  <body >
+      <form n:render="form itemSelection">
+      </form>
+
+      <script type="text/javascript">
+        //<![CDATA[
+        mapSubmit();
+        updateSelects();
+        //]]>
+      </script>
+
+  </body>
+</html>
+

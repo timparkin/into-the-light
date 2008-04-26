@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <img src="/static/images/help.gif" style="float:right" />
+  <h2><n:invisible n:render="type" /> Items</h2>
+
+  <h4 class="search">Search (click to open)</h4>
+  <form n:render="form search" />
+
+  <form n:render="contentItems_actions" method="post">
+    <n:invisible n:render="perPage" />
+    <n:invisible n:data="contentItems" n:render="contentItems" />
+    <div class="table_actions">
+      <input type="submit" name="delete" value="Delete" />
+    </div>
+  </form>
+
+  <h2>Add New <n:invisible n:render="type" /></h2>
+  <form n:render="form newItem" />
+  
+</n:invisible>

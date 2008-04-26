@@ -1,0 +1,5 @@
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <h2>Sales Orders</h2>
+  <form n:render="form view" />
+  <table n:data="salesorders" n:render="salesorders" />
+</n:invisible>

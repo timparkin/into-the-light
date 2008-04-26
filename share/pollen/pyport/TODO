@@ -1,0 +1,34 @@
+Bugs:
+
+* Cache by identity to ensure only one copy of object per session.
+* Only update columns that have actually changed.
+* Fail if an object in a OneToMany is added to another object OneToMany.
+* obj.l[0] = obj.l[1] shouldn't affect the database as both objs are in the
+  list already.
+* Should Session rollback() a connection if it was given the connection to use
+  or leave that decision for the developer?
+
+Requirements:
+
+* Don't pretend there isn't a RDBMS, it's unavoidable.
+* Simple to configure.
+* Transactions!
+* Should never obscure the real connection.
+* SQL-like query language that is reasonably powerful. What does that mean?
+  Need at least simple where clauses and order by.
+
+Ideas:
+
+* Auto join relations with main object joins.
+* Op locks
+* Auto timestamp
+* Abstract the backend.
+* Lazy fetch individual attributes. Might be useful for BLOBs.
+* Ordering
+* Schema generation
+* Automatically ordered lists, useful for tables with sequence column.
+* select count
+* Query individual attributes, i.e. 'select last_name from Employee' would
+  create an object with the  identity and last_name attributes populated
+  but not first_name. Attributes which aren't fetched would (probably) be
+  considered lazy.

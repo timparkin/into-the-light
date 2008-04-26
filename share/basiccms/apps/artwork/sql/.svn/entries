@@ -1,0 +1,40 @@
+8
+
+dir
+300
+svn+ssh://svn@pollenation.net/svn/tim/davidward/branches/sitemapmerge/site/share/basiccms/apps/artwork/sql
+svn+ssh://svn@pollenation.net/svn/tim
+
+
+
+2007-07-07T08:34:56.401415Z
+63
+tim
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+134c1aee-1c12-0410-92b1-ab0d32cc31a0
+
+artwork-type.sql
+file
+
+
+
+
+2008-03-12T11:19:33.000000Z
+7c79107b0eb7f6834254df8915bb24fa
+2007-07-07T08:34:56.401415Z
+63
+tim
+

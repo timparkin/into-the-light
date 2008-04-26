@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="inherit Skin.html">
+  <n:invisible n:pattern="page-title" n:data="title" n:render="data" />
+  <n:invisible n:pattern="page-content" n:data="body" n:render="data" />
+</n:invisible>
+

@@ -1,0 +1,22 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+<div class="clear" />
+<div id="productBoxes">
+	
+  <n:invisible n:data="items" n:render="chunked_sequence 3">
+    <table cellspacing="6px" n:pattern="item">
+      <tr>
+	    <n:invisible n:render="chunkedrow 3">
+          <td n:pattern="item">
+            <n:invisible n:render="fragment item" />
+          </td>
+          <td n:pattern="emptyitem">&nbsp;</td>
+        </n:invisible>
+      </tr>
+    </table>  
+  </n:invisible>
+
+</div>
+</n:invisible>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <h2>Registered Users</h2>
+
+  <p>Right click and save the following link to download a csv containing the current registered users:</p>
+  <p><a n:render="download_link" /></p>
+  <form action="" method="post" n:render="form">
+    <table n:data="users" n:render="sequence">
+      <tr n:pattern="header">
+        <th>&nbsp;</th>
+        <th>Name</th>
+        <th>Optin</th>
+        <th>Email</th>
+      </tr>
+      <tr n:pattern="item" n:render="user">
+        <td><input type="checkbox" name="userid"><n:attr
+          name="value"><n:slot name="id"/></n:attr></input></td>
+        <td><a href="#"><n:attr name="href"><n:slot
+            name="editLink"/></n:attr><n:slot
+            name="name">username</n:slot></a></td>
+        <td><n:slot name="optin">optin</n:slot></td>
+        <td><n:slot name="email">email</n:slot></td>
+      </tr>
+    </table>
+        <div class="table_actions">
+    <input type="submit" name="delete" value="Delete" />
+    </div>
+  </form>
+  <a href="new" n:render="newUser">Create new user</a>
+</n:invisible>
+

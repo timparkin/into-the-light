@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  xmlns:n="http://nevow.com/ns/nevow/0.1">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Into The Light - Page Not Found</title>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.2.2/build/reset-fonts-grids/reset-fonts-grids.css" />
+  <link rel="stylesheet" type="text/css" href="/skin/css/styles.css" />
+</head>
+
+<body><n:attr name="class"><n:invisible n:render="bodyclass" /></n:attr>
+
+<div id="main">
+  <div id="header">
+    <h1><a href="/"><n:invisible n:render="logotext">YUI: CSS Grid Builder</n:invisible></a></h1>
+    <n:invisible n:render="navigation type=1" />
+  </div>
+  <div id="body" class="clearfix">
+  
+    <div id="subnav">
+
+    </div>
+    <div id="content">
+      <h2>Site Error</h2>
+      <h3><n:slot name="page-title" /></h3>
+      <n:slot name="page-content" />
+    </div>  
+  </div>
+</div>
+
+<div id="footer">
+  <div id="footercontent">
+    <div class="row1 clearfix">
+      <div class="search">
+        <h3>search</h3>
+        <div class="item">
+          <p>Use the following form to search this site. Alternatively you may use the advanced search by clicking <a href="#">here"</a>.</p>
+        </div>
+        <form>
+          <label>search term</label>
+          <input id="text" type="text" />
+          <input class="action" type="submit" value="click here to search" />
+        </form>
+      </div>
+      <div class="subscribe">
+        <h3>subscribe</h3>
+        <div class="item">
+          <p>Please send me news alerts about significant news, events or promotions.</p>
+        </div>
+        <form>
+          <div class="clearfix">
+            <label>name</label>
+            <input id="name" type="text" />
+          </div>
+          <div class="clearfix">
+            <label>email</label>
+            <input id="email" type="text" />
+          </div>
+          <input class="action" type="submit" value="click here to subscribe" />
+        </form>
+      </div>
+      <div class="info">
+        <h3>info</h3>
+        <div class="label">
+          <img src="/skin/images/davidward.jpg" />
+        </div>
+        <div class="item">
+          <p>David Ward<br />Old Crofters Cottage<br />7 Wild Road<br />Harris<br />Scotland<br />SC1 HR1</p>
+          <p>0845 830 2783</p>
+          <p><a href="mailto:david@into-the-light.com">david@into-the-light.com</a></p>
+          <p>Copyright &copy; 1990-2007 David Ward</p>
+          <p>All Rights Reserved</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

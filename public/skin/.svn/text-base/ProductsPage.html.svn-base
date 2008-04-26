@@ -1,0 +1,19 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  <html xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="inherit Skin.html">
+<n:invisible n:pattern="page-content">
+
+  <div class="clearfix" n:render="related_content">
+    <h1><n:slot name="title"/>&nbsp;</h1>
+    <n:slot name="body"/>
+  </div>
+
+  <n:invisible n:render="fragment productBrowser" />
+
+  <n:invisible n:render="related_content">
+    <n:slot name="bodyFooter"/>
+  </n:invisible>
+  
+</n:invisible>
+</html>

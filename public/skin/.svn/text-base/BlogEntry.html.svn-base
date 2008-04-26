@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="inherit Skin.html">
+<n:invisible n:pattern="title" n:render="blogentry"><n:slot name="title" /></n:invisible>
+<n:invisible n:pattern="admin" n:render="admin" />
+<n:invisible n:pattern="headextra">
+<script type="text/javascript" src="/skin/js/formatDate.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+
+$(document).ready(function() {
+
+
+  d = new Date();
+  $.post('/system/converter', {'sourceFormat':'markdown','targetFormat':'xhtml','context':'public','value': $('#comment-comment').val()}, function (out) {
+    $('#previewComment').empty().append(out);
+  });
+  $('#previewAuthor').html($('#comment-authorName').val());
+  $('#previewDate').html( d.formatDate("m/d/Y H:i") );
+ 
+  
+  $('#comment-comment').keyup(function() {
+    $.post('/system/converter', {'sourceFormat':'markdown','targetFormat':'xhtml','context':'public','value': $('#comment-comment').val()}, function (out) {
+      $('#previewComment').empty().append(out);
+      $('#previewDate').html( d.formatDate("m/d/Y H:i") );
+    });
+  });
+  $('#comment-authorName').keyup(function() {
+    $('#previewAuthor').html($(this).val());
+    $('#previewDate').html( d.formatDate("m/d/Y H:i") );
+  });
+});
+
+
+//--><!]]>
+</script>
+</n:invisible>
+<n:invisible n:pattern="page-content">
+
+
+  <div class="blogitemsummary clearfix" n:render="blogentry">
+    <div class="blogitemlabel">
+      <div class="day"><n:slot name="day" /></div>
+      <div class="date"><n:slot name="date" /></div>
+    </div>
+
+    <div id="content">
+      <h3 class="sifr"><n:slot name="title" /></h3>
+      <div class="body"><n:slot name="body" /></div>
+      <h2 class="sifr">Comments</h2>
+      <div class="comments" id="comments">
+
+        <n:invisible n:data="comments" n:render="sequence">
+	<div class="comment" n:pattern="item" n:render="comment">
+	  <div><n:attr name="class"><n:slot name="isOwner"/></n:attr>
+	  <h3><a><n:attr name="id"><n:slot name="id"/></n:attr><n:attr name="name"><n:slot name="id"/></n:attr></a>
+	  <em><n:slot name="authorName" /></em><n:slot name="posted"/></h3>
+	  <n:slot name="comment" />
+	  </div>
+	</div>
+	<p n:pattern="empty">No comments, so far.</p>
+        </n:invisible>
+	<div class="commentform" id="commentform">
+	  <h3 class="sifr">Send us your comments</h3>
+	  <form n:render="form comment" />
+	</div>
+        <h2 class="sifr">Comment Preview</h2>
+	<div class="comment preview" >
+	  <div>
+	  <h3><em id="previewAuthor"></em><span id="previewDate"></span></h3>
+	  <span id="previewComment" />
+	  </div>
+	</div>
+	
+	<div id="commentguide">
+        <h2 class="sifr">Comment Formatting</h2>
+	<div class="comment">
+	<p>The following are a some examples of how you can add links, bold text and lists to your comment entry. The section below this 
+	shows how they will look on screen. You should be able to see a preview of your post as you type.</p>
+	
+	<h3>Enter This</h3>
+<code><pre>
+One or more consecutive lines of text
+separated by one or more blank lines.
+ 
+This is another paragraph.
+
+* Red
+* Green
+* Blue
+
+This is **bold** and _italic_
+
+Links need angle brackets like so &lt;http://example.com/&gt;...
+
+...or if you want to link [some text](http://www.aboutsometext) you can!
+</pre></code>
+	<h3>Get This</h3>
+
+<p>One or more consecutive lines of text
+   separated by one or more blank lines.
+</p>
+<p>This is another paragraph.
+</p>
+<ul>
+ <li>
+     Red
+ </li>
+
+ <li>
+     Green
+ </li>
+
+ <li>
+     Blue
+ </li>
+</ul>
+<p>This is <strong>bold</strong> and <em>italic</em>
+</p>
+<p>Links need angle brackets like so <a href="http://example.com/">http://example.com/</a>...
+
+</p>
+<p>...or if you want to link <a href="http://www.aboutsometext">some text</a> you can!
+</p>
+
+
+</div>
+	</div>
+      </div>      
+    </div>
+    <div id="sidepanel">
+      <n:slot name="sidebar" />
+    </div>      
+  </div>
+
+
+  
+
+
+</n:invisible>
+</n:invisible>
+

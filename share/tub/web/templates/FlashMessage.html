@@ -1,0 +1,12 @@
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="message">
+  <div n:pattern="message" id="flash">
+    <p><n:slot name="message" /></p>
+    <a href="#"><n:attr name="href"><n:slot
+      name="url"/></n:attr>clear</a>
+  </div>
+  <div n:pattern="error" id="flash" class="error">
+    <p><n:slot name="message" /></p>
+    <a href="#"><n:attr name="href"><n:slot
+      name="url"/></n:attr>clear</a>
+  </div>
+</n:invisible>

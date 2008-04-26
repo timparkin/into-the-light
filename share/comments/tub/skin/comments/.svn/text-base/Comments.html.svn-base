@@ -1,0 +1,27 @@
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+
+<h2>Need Processing</h2>
+<n:invisible  n:data="comments" n:render="sequence">
+  <div class="comment" n:pattern="item" n:render="comment">
+    <h4>r.e. <n:slot name="relatedTo" /></h4>
+    <h5>From: <n:slot name="authorName" /> (<n:slot name="authorEmail" />) | Date: <n:slot name="posted" /></h5>
+    <n:slot name="comment" />
+    <p><a href="#"><n:attr name="href"><n:slot name="url"/></n:attr>review comment</a></p>
+  </div>
+  <p n:pattern="empty">No comments to process</p>
+</n:invisible>
+
+<hr />
+
+<h2>Approved Comments</h2>
+<n:invisible  n:data="approved" n:render="sequence">
+  <div class="comment" n:pattern="item" n:render="approvedcomment">
+    <h4>r.e. <n:slot name="relatedTo" /></h4>
+    <h5>From: <n:slot name="authorName" /> (<n:slot name="authorEmail" />) | Date: <n:slot name="posted" /></h5>
+    <n:slot name="comment" />
+    <p><a href="#"><n:attr name="href"><n:slot name="url"/></n:attr>review comment</a></p>
+  </div>
+  
+</n:invisible>
+</n:invisible>
+

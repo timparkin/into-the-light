@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <p>In the Countries text area enter lines containing an iso country code and a delivery rate code separated by a ';', for example:</p>
+  <pre>
+    250;zone1
+    826;express
+    826;standard
+  </pre>
+  <p>A list of iso country codes can be found <a n:render="iso_codes">here</a>. The delivery rate code is defined in the Rates text area.</p>
+  <p>When the form is submitted the country matching the country code is added as a prefix to the line.</p>
+
+  <p>In the Rates text area enter lines containing a code (this must be unique), a label and a price separated by a ';', for example:</p>
+  <pre>
+    standard;standard;5.00
+    express;express;10.00
+    zone1;standard;10.00
+  </pre>
+  <form n:render="form delivery_charge" />
+
+
+</n:invisible>
+

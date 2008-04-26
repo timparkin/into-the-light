@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="inherit Skin.html">
+<n:invisible n:pattern="admin" n:render="admin" />
+<n:invisible n:pattern="headextra" />
+
+<n:invisible n:pattern="page-content">
+    <div id="triptych">
+  <n:invisible  n:data="products" n:render="paging 6,3">
+        <div n:pattern="item" n:render="product"><n:attr name="class">photo item-<n:slot name="modcnt" /></n:attr>
+          <a><n:attr name="href"><n:slot name="url" /></n:attr><img width="300"><n:attr name="src"><n:slot name="imgsrc" /></n:attr></img></a>
+        </div>
+  </n:invisible>
+    </div>
+ 
+       <n:invisible n:data="body" n:render="data" />
+
+
+</n:invisible>
+</n:invisible>
+

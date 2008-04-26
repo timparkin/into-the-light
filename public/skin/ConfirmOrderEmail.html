@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:n="http://nevow.com/ns/nevow/0.1" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Into The Light Order Confirmation</title>
+<style type="text/css">
+<!--
+body, td {
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #000;
+	color: #FFF;
+}
+
+hr {
+  border: 0;
+  background-color: #222;
+  height: 1px;
+}
+h2 {
+  font-weight: normal;
+  font-size: 100%;
+}
+
+-->
+</style>    
+</head>
+<body>
+
+<table id="page" align="center" width="600" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="3"><img src="http://www.into-the-light.com/skin/images/email-header.gif" alt="Into The Light" /></td>
+  </tr>
+  <tr>
+    <td class="leftside"><img src="http://www.into-the-light.com/skin/images/email-sidetrans.gif" /></td>
+    <td>
+
+
+
+
+
+  <n:invisible n:data="sales_order" >
+
+<h2>Order Confirmation</h2>
+<p>Dear <n:invisible n:data="customer_first_name" n:render="data">(First Name)</n:invisible>,</p>
+
+<p>Thank you for making an enquiry about a photo at www.into-the-light.com. Here is your enquiry confirmation. At the moment I am only able to check enquiries once every few days. I hope to get back to people in at least a week.</p>
+
+<hr />  
+  
+  <h2>Enquiry Details</h2>
+  <table>
+    <tr><td>Enquiry Number</td><td n:data="order_num" n:render="data">(Order Number)</td></tr>
+    <tr><td>Enquiry Date</td><td n:data="create_date" n:render="data">(Create Date)</td></tr>
+  </table>
+
+<hr />
+  <h2>Basket</h2>
+  <table >
+    <tr >
+      <th style="text-align: left">Description</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    <n:invisible n:data="items" n:render="sequence">
+      <tr n:pattern="item" n:render="basket_item">
+        <td><n:slot name="description" /></td>
+        <td>&pound;<n:slot name="unit_price" /></td>
+        <td><n:slot name="quantity_ordered" /></td>
+        <td>&pound;<n:slot name="total_price" /></td>
+      </tr>
+    </n:invisible>
+    <tr>
+      <td colspan="3">Total Price</td>
+      <td>&pound;<n:invisible n:data="total_price" n:render="data">(Total Price)</n:invisible></td>
+    </tr>
+  </table>
+<hr />
+
+<p>Yours Sincerely</p>
+
+
+
+<p>David Ward <br />
+<br />
+t. 0845 120 1036<br />
+f. 0845 120 1037 <br />
+e. customerservice@into-the-light.com <br />
+http://www.into-the-light.com  <br />
+  </p>
+
+  </n:invisible>
+
+    </td>
+    <td class="rightside"><img src="http://www.into-the-light.com/skin/images/email-sidetrans.gif" /></td>
+  </tr>
+</table>
+
+</body>
+</html>

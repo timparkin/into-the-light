@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <form n:render="form search" />
+  <form action="" method="post" n:render="artwork_table_form">
+    <table n:render="artwork_table" />
+    <input type="submit" name="delete" value="Delete" />
+  </form>
+  <a href="new" n:render="newArtwork">Create new artwork</a>
+</n:invisible>
+

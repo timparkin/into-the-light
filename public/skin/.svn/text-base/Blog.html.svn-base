@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="inherit Skin.html">
+<n:invisible n:pattern="title">Into The Light - Oceans of Instants</n:invisible>
+<n:invisible n:pattern="admin" n:render="admin" />
+<n:invisible n:pattern="headextra" />
+<n:invisible n:pattern="page-content">
+
+  <div class="clearfix" id="blog">
+    <div id="blognav">
+      <h2>Dates</h2>
+      <n:invisible n:render="months" />
+    </div>
+    <div id="bloghead">
+      <h2 class="sifr">Oceans of Instants</h2>
+
+      <div class="intro">
+        <p>"<n:invisible n:data="cmsitemselection name=Blog Introduction" n:render="sequence" >  <n:invisible n:pattern="item" n:render="cmsitemselection name=Blog Introduction" />  </n:invisible>  "</p>
+      </div>
+    </div>
+    <div id="sidepanel">
+      <div class="search">
+        <h3>search</h3>
+        <div class="item">
+          <p>Use the following form to search the blog.</p>
+        </div>
+        <form action="/search">
+          <label>search term</label>
+          <input id="text" name="q" type="text" />
+          <input class="action" type="submit" value="click here to search" />
+        </form>
+        <h3>rss</h3>
+        <div class="item">
+          <p>Click <a href="/rss">here</a> to access my rss feed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="blogentries">
+   <n:invisible  n:data="blogentries" n:render="paging 5">
+
+  <div class="blogitemsummary clearfix" n:pattern="item" n:render="blogentry">
+    <div class="blogitemlabel">
+      <div class="day"><n:slot name="day" /></div>
+      <div class="date"><n:slot name="date" /></div>
+    </div>
+
+    <div id="content">
+      <h3 class="sifr"><a><n:attr name="href"><n:slot name="url" /></n:attr><n:slot name="title" /></a></h3>
+      <div class="body"><n:slot name="body" /></div>
+      <div class="commentcount"><a><n:attr name="href"><n:slot name="url" />#comments</n:attr><n:slot name="comments" /></a>&nbsp;&nbsp;&nbsp;<a><n:attr name="href"><n:slot name="url" />#commentform</n:attr>Leave a comment</a></div>
+    </div>
+    <div id="sidepanel">
+      <n:slot name="sidebar" />
+    </div>      
+  </div>
+   </n:invisible>
+   <div id="paging-header">
+   <n:invisible n:render="fragment paging_controls" />
+   </div>
+   <div id="paging-footer">
+   <n:invisible n:render="fragment paging_controls" />
+   </div>
+</div>
+ 
+    
+    
+
+  
+  
+
+
+</n:invisible>
+</n:invisible>
+

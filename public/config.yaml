@@ -1,0 +1,84 @@
+applicationLabel: Into The Light - Admin
+
+database:
+    args:   
+        database: into-the-light
+        user: into-the-light
+
+
+public:
+    http:
+        strport: tcp:8130
+    log: logs/access.log
+admin:
+    http:
+        strport: tcp:8131
+    log: logs/access.log
+
+
+mailService:
+    smtpServer: localhost
+    fromEmail: david@into-the-light.com
+    salesFromEmail: david@into-the-light.com
+    salesNotificationEmail: david@into-the-light.com
+    errorEmail: tim.parkin@gmail.com
+
+
+notification:
+    smtpHost: localhost
+    emailFromAddress: david@into-the-light.com
+    emailTemplateDir: ./data/email
+
+skin:
+    dir: ./skin
+
+cmsAssetsService:
+    cachedir: cache/cms/assets
+
+
+
+ecommerce:
+    use_test_data: !bool True
+    sales_order:
+        order_num_pattern: 'DAVIDWARD-%(sales_order_id)06d'
+
+
+cmstypes: 
+    - [cms.asset.AssetPlugin, asset]
+    - [basiccms.formpage.FormPagePlugin]
+    - [basiccms.page.PagePlugin]
+    - [basiccms.news.NewsItemPlugin]
+    - [basiccms.gallery.GalleryPlugin]
+    - [basiccms.blogentry.BlogEntryPlugin]
+    - [cms.fragment.FragmentPlugin]
+    - [cms.fragmenttype.FragmentTypePlugin]
+    - [ecommerce.product.manager.ProductPlugin]
+    
+indexes:
+    static: indexes/static
+    product: indexes/product
+    dontIndexCategory: search.do_not_index
+
+
+adapters: 
+    - [basiccms.web.cmsresources.PageResource, basiccms.page.Page, nevow.inevow.IResource]
+    - [basiccms.web.cmsresources.FormPageResource, basiccms.formpage.FormPage, nevow.inevow.IResource]
+    - [basiccms.web.cmsresources.NewsItemResource, basiccms.news.NewsItem, nevow.inevow.IResource]
+    - [basiccms.web.cmsresources.FragmentResource, cms.fragment.Fragment, nevow.inevow.IResource]
+
+sitemapsources:
+    - tub.public.sitemapservice.PublicCMSSiteMapSource
+
+staticData:
+    baseDir: data
+    files:
+        site: site.yaml        
+
+systemServices:
+    - {name: ecommerce, factory: ecommerce.app.ECommerceAssets, args: {'cachedir': 'cache/ecommerce'}}
+    - {name: converter, factory: tub.converterservice.converterFactory, args: {}}
+
+
+
+adminSystemServices:
+    - {name: converter, factory: tub.converterservice.converterFactory, args: {}}

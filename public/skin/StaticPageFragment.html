@@ -1,0 +1,9 @@
+
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="item">
+    <dt n:render="item" class="searchresult" ><h4 class="sifr"><n:slot name="title" /></h4>
+    <n:invisible n:render="summary">
+      <p><n:slot name="summary" /></p>
+    </n:invisible>
+    <div class="url">URL: <a><n:attr name="href"><n:slot name="href" /></n:attr><n:slot name="path" /></a></div>
+    </dt>
+</n:invisible>

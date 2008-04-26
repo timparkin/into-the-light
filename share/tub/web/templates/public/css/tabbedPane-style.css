@@ -1,0 +1,13 @@
+.tabbedPane {
+  margin-top: 1em;
+}
+
+.tabbedPane div.selected
+{
+  padding: 1em;
+}
+
+.tabbedPane .tabs li, .tabbedPane div.selected
+{ 
+  border: 1px solid #c6b6c6;
+}

@@ -1,0 +1,48 @@
+<table class="tabular-view" xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <tbody>
+    <n:slot name="titleRow">
+      <tr class="header" n:pattern="titleRow">
+        <th n:pattern="titleCell"><n:slot name="title">Title</n:slot></th>
+        <th n:pattern="sortableTitleCell"><span class="title"><n:slot
+            name="title">Title</n:slot></span>
+          <span class="sorting-controls"><a class="asc" href="#"><n:attr
+              name="href"><n:slot name="asc"/></n:attr>↑</a> <a class="desc"
+              href="#"><n:attr name="href"><n:slot
+              name="desc"/></n:attr>↓</a></span></th>
+      </tr>
+    </n:slot>
+    <n:slot name="dataRows">
+      <tr class="data odd" n:pattern="dataRow">
+        <td n:pattern="dataCell"><n:slot name="value">Value</n:slot></td>
+      </tr>
+      <tr class="data even" n:pattern="dataRow">
+        <td n:pattern="dataCell"><n:slot name="value">Value</n:slot></td>
+      </tr>
+      <tr n:pattern="emptyDataRow">
+        <td>
+          <n:attr name="colspan"><n:slot name="columnCount"/></n:attr>
+          No data
+        </td>
+      </tr>
+    </n:slot>
+    <tr class="footer">
+      <td colspan="1">
+        <n:attr name="colspan"><n:slot name="columnCount"/></n:attr>
+        <span class="page-x-of-y">
+          Page <n:slot name="page">1</n:slot> of <n:slot
+          name="lastPage">10</n:slot>
+        </span>
+        <span class="paging-controls">
+          <a href="#" class="start"><n:attr name="href"><n:slot
+            name="start"/></n:attr>start</a>
+          <a href="#" class="previous"><n:attr name="href"><n:slot
+            name="previous"/></n:attr>previous</a>
+          <a href="#" class="next"><n:attr name="href"><n:slot
+            name="next"/></n:attr>next</a>
+          <a href="#" class="end"><n:attr name="href"><n:slot
+            name="end"/></n:attr>end</a>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>

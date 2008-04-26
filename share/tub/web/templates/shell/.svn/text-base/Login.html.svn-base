@@ -1,0 +1,45 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <form id="login" method="post" n:render="loginAvatarURL">
+    <n:attr name="action"><n:slot name="url"/></n:attr>
+    <fieldset>
+      <div class="field">
+        <label>Username</label>
+        <div class="inputs"><input type="text" name="username" id="username" /></div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="inputs"><input type="password" name="password" id="password" /></div>
+      </div>
+      <div class="actions">
+        <input type="submit" name="submit" value="Login" />
+      </div>
+    </fieldset>
+  </form>
+
+  <n:invisible n:render="openid_form">
+    <form id="openid" method="get" n:render="openIDAvatarURL">
+      <n:attr name="action"><n:slot name="url"/></n:attr>
+      <fieldset>
+        <div class="field">
+          <label>OpenID</label>
+          <div class="inputs"><input type="text" name="openid" /></div>
+        </div>
+        <div class="actions">
+          <input type="submit" name="submit" value="Sign in" />
+        </div>
+      </fieldset>
+      <input type="hidden" name="sreg" value="sites" />
+    </form>
+  </n:invisible>
+  <script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function(){
+      $('#username').focus();
+    });    
+    //]]>
+  </script>
+</n:invisible>

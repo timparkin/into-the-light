@@ -1,0 +1,10 @@
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+  <h2>Vouchers</h2>
+
+  <form action="" method="post" n:render="voucher_table_form">
+    <table n:data="voucher_definitions" n:render="voucher_definitions" />
+    <input type="submit" name="delete" value="Delete" />
+  </form>
+
+  <a href="new" n:render="new">Create new Voucher</a>
+</n:invisible>

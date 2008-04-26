@@ -1,0 +1,53 @@
+8
+
+dir
+245
+svn+ssh://svn@pollenation.net/svn/tim/davidward/branches/sitemapmerge/site/scripts/dateutil/zoneinfo
+svn+ssh://svn@pollenation.net/svn/tim
+
+
+
+2008-03-18T08:57:04.519657Z
+226
+tim
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+134c1aee-1c12-0410-92b1-ab0d32cc31a0
+
+__init__.py
+file
+
+
+
+
+2008-03-18T08:58:13.000000Z
+afb4c02dda896c31e32b6c61ae60d02c
+2008-03-18T08:57:04.519657Z
+226
+tim
+
+zoneinfo-2007k.tar.gz
+file
+
+
+
+
+2008-03-18T08:58:13.000000Z
+631212ec40cb0791923a8e3f165a3f1b
+2008-03-18T08:57:04.519657Z
+226
+tim
+has-props
+

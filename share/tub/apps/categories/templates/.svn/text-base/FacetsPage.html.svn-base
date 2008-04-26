@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1">
+
+  <h2>Categories</h2>
+
+  <h3>Choose a Category to Edit</h3>
+  <ul n:data="facets" n:render="sequence">
+  <li n:pattern="item" n:render="facet"><a><n:attr name="href"><n:slot
+    name="href">tonyblair</n:slot></n:attr><n:slot name="label">Tony
+    Blair</n:slot></a></li>
+  </ul>
+
+</n:invisible>
