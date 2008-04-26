@@ -1,6 +1,0 @@
-<!--
-  This fragment should always be left blank. It is designed to be overridden by
-  applications to cover the common use case of including some extra CSS or JS in
-  the head section of all pages.
--->
-<n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" />
