@@ -10,7 +10,7 @@ class OptionException(Exception):
 
 class OptionManager(object):
 
-    REQUIRED_COLUMNS=('code','price','description')
+    REQUIRED_COLUMNS=('code','price')
 
     def processFile(self, currentOptions, f):
 

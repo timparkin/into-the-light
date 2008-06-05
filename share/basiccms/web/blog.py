@@ -178,20 +178,6 @@ class Blog(common.PagingMixin,common.Page):
     def render_blogentry(self, ctx, item):
         
         def gotComments(comments):
-            commentMap = {}
-            for comment in comments:
-                if not hasattr(comment,'relatesToComment'):
-                    comment.relatesToComment = None
-                if not hasattr(comment,'followUpComments'):
-                    comment.followUpComments = []
-                commentMap[ comment.id ] = comment
-            for comment in comments:
-                comment.relatesToComment = commentMap[comment.relatesToCommentId]
-                followUpComments = []
-                for id in comment.followUpCommentIds:
-                    followUpComments.append( commentMap[id] )
-                comment.followUpComments = followUpComments
-                    
                 
             tag = ctx.tag
             itemDate = item.getAttributeValue("date", "en")

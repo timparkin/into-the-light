@@ -450,3 +450,26 @@ span.sIFR-alternate {
 .sIFR-hasFlash h2.sifr {
 	visibility: hidden;
 }
+.commententry.inspires {
+  background-color: #EEF;
+}
+
+.commententry.inspiredby {
+  background-color: #FEE;
+
+}
+
+.commententry.current {
+  background-color: #EFE;
+}
+
+
+.inspiration {
+  border-top: 1px dotted #AAA;
+}
+
+#body .inspiration a, #body .inspiration a:visited, #body .inspiration a:link {
+  color: #555;
+  border-bottom: 1px dashed #AAA;
+}
+
