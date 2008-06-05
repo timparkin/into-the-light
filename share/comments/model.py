@@ -14,6 +14,7 @@ class Comment(objstore.Item):
     relatesToVersion = objstore.column('relates_to_version')
     posted = objstore.column()
     approved = objstore.column()
+    relatesToCommentId=None
 
 
     def __init__(self, *a, **k):
@@ -21,6 +22,7 @@ class Comment(objstore.Item):
         authorName = k.pop('authorName')
         authorEmail = k.pop('authorEmail')
         comment = k.pop('comment')
+        relatesToCommentId = k.pop('relatesToCommentId')
         super(Comment, self).__init__(*a, **k)
         if hasattr(relatesTo,'id'):
             self.relatesToId, self.relatesToVersion = relatesTo.id, relatesTo.version
@@ -31,6 +33,7 @@ class Comment(objstore.Item):
         self.authorEmail = authorEmail
         self.posted = datetime.utcnow()
         self.approved = False
+        self.relatesToCommentId = relatesToCommentId
 
 
 

@@ -30,7 +30,27 @@ class CommentsPage(page.Page):
         
         
     def data_comments(self, ctx, data):
-        return self.commentsService.getComments(self.storeSession, approved=False, order=service.CommentsService.DESCENDING)
+        def gotComments(comments):
+            comments = list(comments)
+            commentMap = {}
+            for comment in comments:
+                commentMap[ comment.id ] = comment
+            for comment in comments:
+                if comment.relatesToCommentId is not None:
+                    comment.relatesToComment = commentMap[comment.relatesToCommentId]
+                else:
+                    comment.relatesToComment = None
+
+                followUpComments = []
+                for c in comments:
+                    if comment.id == c.relatesToCommentId:
+                        followUpComments.append( c )
+                comment.followUpComments = followUpComments
+            return [c for c in comments if c.approved is False]
+        
+        d = self.commentsService.getComments(self.storeSession, order=service.CommentsService.DESCENDING)
+        d.addCallback(gotComments)
+        return d
         
         
     def render_comment(self, ctx, comment):
@@ -43,6 +63,13 @@ class CommentsPage(page.Page):
             tag.fillSlots("authorEmail", comment.authorEmail)
             tag.fillSlots("comment", T.xml(markdown.markdown(comment.comment)))
             tag.fillSlots("relatedTo", icomments.IRelatedToSummarizer(relatedTo).getTitle())
+            if comment.relatesToComment is not None:
+                tag.fillSlots("relatesToCommentName", comment.relatesToComment.authorName)
+                tag.fillSlots("relatesToCommentId", comment.relatesToCommentId)
+            else:
+                tag.fillSlots("relatesToCommentName", 'blog article')
+                tag.fillSlots("relatesToCommentId", '0')
+                
             return tag
         
         d = self.storeSession.getItemById(comment.relatesToId)
@@ -50,7 +77,26 @@ class CommentsPage(page.Page):
         return d
 
     def data_approved(self, ctx, data):
-        return self.commentsService.getComments(self.storeSession, approved=True, order=service.CommentsService.DESCENDING)
+        def gotComments(comments):
+            comments = list(comments)
+            commentMap = {}
+            for comment in comments:
+                commentMap[ comment.id ] = comment
+            for comment in comments:
+                if comment.relatesToCommentId is not None:
+                    comment.relatesToComment = commentMap[comment.relatesToCommentId]
+                else:
+                    comment.relatesToComment = None
+                followUpComments = []
+                for c in comments:
+                    if comment.id == c.relatesToCommentId:
+                        followUpComments.append( c )
+                comment.followUpComments = followUpComments
+            return [c for c in comments if c.approved is True]
+        
+        d = self.commentsService.getComments(self.storeSession,  order=service.CommentsService.DESCENDING)
+        d.addCallback(gotComments)        
+        return d
         
         
     def render_approvedcomment(self, ctx, comment):
@@ -63,6 +109,13 @@ class CommentsPage(page.Page):
             tag.fillSlots("authorEmail", comment.authorEmail)
             tag.fillSlots("comment", T.xml(markdown.markdown('%s ...'%comment.comment[:50])))
             tag.fillSlots("relatedTo", icomments.IRelatedToSummarizer(relatedTo).getTitle())
+            if comment.relatesToComment is not None:
+                tag.fillSlots("relatesToCommentName", comment.relatesToComment.authorName)
+                tag.fillSlots("relatesToCommentId", comment.relatesToCommentId)
+            else:
+                tag.fillSlots("relatesToCommentName", 'blog article')
+                tag.fillSlots("relatesToCommentId", '0')
+                
             return tag
         
         d = self.storeSession.getItemById(comment.relatesToId)
@@ -89,6 +142,7 @@ class ReviewCommentPage(formal.ResourceMixin, page.Page):
         form.addField('authorEmail', formal.String(required=True), label="Email")
         form.addField('comment', formal.String(required=True), widgetFactory=formal.TextArea)
         form.addField('posted', formal.Date(required=True, immutable=True))
+        form.addField('relatesToCommentId', formal.Integer())
         form.addAction(self.updateComment, 'update')
         form.addAction(self.approveComment, 'approve')
         form.addAction(self.deleteComment, 'delete')
@@ -97,6 +151,7 @@ class ReviewCommentPage(formal.ResourceMixin, page.Page):
             'authorEmail': self.comment.authorEmail,
             'comment': self.comment.comment,
             'posted': self.comment.posted,
+            'relatesToCommentId': self.comment.relatesToCommentId,
             }
         return form
         
@@ -123,4 +178,5 @@ class ReviewCommentPage(formal.ResourceMixin, page.Page):
         self.comment.authorName = data['authorName']
         self.comment.authorEmail = data['authorEmail']
         self.comment.comment = data['comment']
+        self.comment.relatesToCommentId = data['relatesToCommentId']
 

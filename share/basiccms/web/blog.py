@@ -178,6 +178,21 @@ class Blog(common.PagingMixin,common.Page):
     def render_blogentry(self, ctx, item):
         
         def gotComments(comments):
+            commentMap = {}
+            for comment in comments:
+                if not hasattr(comment,'relatesToComment'):
+                    comment.relatesToComment = None
+                if not hasattr(comment,'followUpComments'):
+                    comment.followUpComments = []
+                commentMap[ comment.id ] = comment
+            for comment in comments:
+                comment.relatesToComment = commentMap[comment.relatesToCommentId]
+                followUpComments = []
+                for id in comment.followUpCommentIds:
+                    followUpComments.append( commentMap[id] )
+                comment.followUpComments = followUpComments
+                    
+                
             tag = ctx.tag
             itemDate = item.getAttributeValue("date", "en")
             try:
@@ -282,9 +297,26 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
         """
         Return the list of comments for the object.
         """
-        return self.avatar.realm.commentsService.getCommentsForItem(self.storeSession,
-                self.original)
+        def gotComments(comments):
+            comments = list(comments)
+            commentMap = {}
+            for comment in comments:
+                commentMap[ comment.id ] = comment
+            for comment in comments:
+                if comment.relatesToCommentId is not None:
+                    comment.relatesToComment = commentMap[comment.relatesToCommentId]
+                else:
+                    comment.relatesToComment = None
+                followUpComments = []
+                for c in comments:
+                    if comment.id == c.relatesToCommentId:
+                        followUpComments.append( c )
+                comment.followUpComments = followUpComments
+            return comments
         
+        d =  self.avatar.realm.commentsService.getCommentsForItem(self.storeSession, self.original)
+        d.addCallback(gotComments)        
+        return d
         
     def render_comment(self, ctx, comment):
         tag = ctx.tag
@@ -297,6 +329,19 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
             tag.fillSlots("isOwner", '')
         tag.fillSlots("authorEmail", comment.authorEmail)
         tag.fillSlots("comment", T.xml(markdown.markdown(comment.comment)))
+        tag.fillSlots("relatesToCommentId",comment.relatesToCommentId)
+        if hasattr(comment, 'relatesToComment') and comment.relatesToComment is not None:
+            tag.fillSlots("relatesToCommentName",comment.relatesToComment.authorName)
+        else:
+            tag.fillSlots("relatesToCommentName",'main blog entry')
+        if hasattr(comment,'followUpComments') and comment.followUpComments is not None:
+            fTag = T.span(class_='followUps')
+            for f in comment.followUpComments:
+                fTag[ T.a(href="#comment-%s"%f.id,rel='inspires')[ f.authorName ],', ' ]
+            tag.fillSlots("followUpComments",fTag)
+        else:
+            tag.fillSlots("followUpComments",'None')
+            
         return tag
         
 
@@ -306,6 +351,7 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
         form.addField('authorName', formal.String(required=True), label="Name")
         form.addField('authorEmail', formal.String(required=True), label="Email")
         form.addField('comment', formal.String(required=True), widgetFactory=formal.TextArea)
+        form.addField('relatesToCommentId', formal.Integer(),widgetFactory=formal.Hidden)
         form.addAction(self.postComment)
         return form
         

@@ -33,6 +33,37 @@ $(document).ready(function() {
     $('#previewAuthor').html($(this).val());
     $('#previewDate').html( d.formatDate("m/d/Y H:i") );
   });
+  
+  $('.commententry .highlightthis').click( function() {
+    var container = $(this).parent('h3').parent('div').parent('.commententry');
+    var id = container.attr('id').split('-')[1];
+    var relatesToCommentId = container.find('.inspiredby a').attr('href').split('-')[1];
+    var data = new Array();
+    count = 0;
+    jQuery.each(container.find('.inspires a'),function() {
+      data[count] = $(this).attr('href').split('-')[1];
+      count++;
+    });
+    var followUpIds = data;
+    $('.commententry').removeClass('inspiredby');
+    $('.commententry').removeClass('inspires');
+    $('.commententry').removeClass('current');
+    container.addClass('current');
+    $('#comment-'+relatesToCommentId).addClass('inspiredby');
+    for (i=0;i<followUpIds.length;i++) {
+      $('#comment-'+followUpIds[i]).addClass('inspires');
+    }
+    
+    
+  });
+  $('.commententry').each( function () {
+    var id = $(this).attr('id').split('-')[1];
+    $(this).find('.commentOnThis').click( function() {
+      $('#comment-relatesToCommentId').attr('value',id);
+    });
+  });
+  
+  
 });
 
 
@@ -55,11 +86,17 @@ $(document).ready(function() {
       <div class="comments" id="comments">
 
         <n:invisible n:data="comments" n:render="sequence">
-	<div class="comment" n:pattern="item" n:render="comment">
+	<div class="comment commententry" n:pattern="item" n:render="comment"><n:attr name="id">comment-<n:slot name="id"/></n:attr>
 	  <div><n:attr name="class"><n:slot name="isOwner"/></n:attr>
-	  <h3><a><n:attr name="id"><n:slot name="id"/></n:attr><n:attr name="name"><n:slot name="id"/></n:attr></a>
+	  <h3>	  <span class="highlightthis">Highlight this Comment</span>
 	  <em><n:slot name="authorName" /></em><n:slot name="posted"/></h3>
 	  <n:slot name="comment" />
+	  <div class="inspiration">
+	  <span class="commentOnThis"><a href="#comment">Reply to this Comment</a></span>
+	  <div class="inspiredby">inspired by: <a rel="inspiredby"><n:attr name="href">#comment-<n:slot name="relatesToCommentId" /></n:attr><n:slot name="relatesToCommentName" /></a></div>
+	  <div class="inspires">inspires: <n:slot name="followUpComments" /></div>
+	  </div>
+	  
 	  </div>
 	</div>
 	<p n:pattern="empty">No comments, so far.</p>
