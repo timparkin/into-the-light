@@ -86,7 +86,9 @@ class RootResource(rend.Page):
     
     def child_rss(self, ctx):
         return blog.BlogRSS(ctx)
-    
+
+    def child_commentrss(self, ctx):
+        return blog.CommentRSS(ctx)    
     
     def locateCMSResource(self, ctx, segments):
         """

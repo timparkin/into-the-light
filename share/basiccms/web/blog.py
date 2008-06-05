@@ -78,6 +78,34 @@ class BlogRSSSource():
         u = u.clear()
         return str(u)
 
+class CommentRSSSource():
+    
+    def __init__(self,commentItems):
+        self.commentItems = commentItems[:40]
+        self.commentItems.reverse()
+        
+    def title(self, ctx):
+        return 'David Ward - Into The Light - Comments'
+
+    def description(self, ctx):
+        return 'Comments Feed for David Ward\'s Blog'
+
+    def link(self, ctx):
+        u = url.URL.fromContext(ctx)
+        u = u.clear()
+        return str(u)
+
+    def items(self, ctx):
+        items = []
+        for item in self.commentItems:
+            items.append( CommentRSSItem(item) )
+        return items
+
+    def rssLink(self, ctx):
+        u = url.URL.fromContext(ctx).child('commentrss')
+        u = u.clear()
+        return str(u)    
+    
 class RSSItem():
     
     def __init__(self,item):
@@ -101,6 +129,26 @@ class RSSItem():
     def pubDate(self, ctx):
         return self.item.date
 
+class CommentRSSItem():
+    
+    def __init__(self,item):
+        self.item = item
+        
+    def shortTitle(self, ctx):
+        return '%s - %s' %(self.item.relatedToSummary,self.item.authorName)
+        
+
+    def description(self, ctx):
+        return self.item.comment
+
+    def link(self, ctx):
+        u = url.URL.fromContext(ctx).child('blog').child(self.item.relatedToName)
+        u = u.clear()
+        return '%s#%s'%(str(u),'comment-%s'%self.item.id)
+    
+    def pubDate(self, ctx):
+        return self.item.posted
+    
     
 def getItems(ctx,self=None):
     def gotItems(items):
@@ -120,11 +168,49 @@ def getItems(ctx,self=None):
     d.addCallback(gotItems)
     return d    
    
+def getCommentItems(ctx,self=None):
+
+    @defer.inlineCallbacks
+    def gotComments(comments):
+        comments = list(comments)
+        commentMap = {}
+        for comment in comments:
+            commentMap[ comment.id ] = comment
+        for comment in comments:
+            if comment.relatesToCommentId is not None:
+                comment.relatesToComment = commentMap[comment.relatesToCommentId]
+            else:
+                comment.relatesToComment = None
+            followUpComments = []
+            for c in comments:
+                if comment.id == c.relatesToCommentId:
+                    followUpComments.append( c )
+            comment.followUpComments = followUpComments
+            relatedTo = yield storeSession.getItemById(comment.relatesToId)
+            relatedToSummary = icomments.IRelatedToSummarizer(relatedTo).getTitle()
+            comment.relatedToSummary = relatedToSummary
+            comment.relatedToName = relatedTo.name
+
+        defer.returnValue( [c for c in comments if c.approved is True] )
+    
+    
+    avatar = icrux.IAvatar(ctx)
+    storeSession = tubcommon.getStoreSession(ctx)        
+    d = avatar.realm.commentsService.getComments(storeSession,  order='DESCENDING')
+    d.addCallback(gotComments)        
+    return d
     
 def BlogRSS(ctx):
     def gotItems(items):
         return rssfeed.getRSSFeed( ctx, BlogRSSSource(items) )
     d = getItems(ctx)
+    d.addCallback(gotItems)
+    return d
+
+def CommentRSS(ctx):
+    def gotItems(items):
+        return rssfeed.getRSSFeed( ctx, CommentRSSSource(items) )
+    d = getCommentItems(ctx)
     d.addCallback(gotItems)
     return d
     
@@ -136,6 +222,12 @@ def formatAgo(ago):
         return '%s months ago'%ago.months
     if ago.months > 0:
         return 'last month'
+    if ago.days > 28:
+        return '4 weeks ago'
+    if ago.days > 21:
+        return '3 weeks ago'
+    if ago.days > 14:
+        return '2 weeks ago'
     if ago.days > 7:
         return 'last week'
     if ago.days >1:
