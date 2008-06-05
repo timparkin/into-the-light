@@ -53,6 +53,7 @@ class BlogRSSSource():
     
     def __init__(self,blogitems):
         self.blogitems = blogitems[:10]
+        self.blogitems.reverse()
         
     def title(self, ctx):
         return 'David Ward - Into The Light'
