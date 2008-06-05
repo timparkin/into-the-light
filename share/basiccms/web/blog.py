@@ -512,7 +512,13 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
         d.addCallback(lambda item: sendCommentNotification(item,ctx,self.original.title))
         d.addCallback(lambda ignore: url.here.add(self.COMMENT_POSTED, 1))
         return d
+
+    def childFactory(self, ctx, name):
         
+        avatar = icrux.IAvatar(ctx)
+        storeSession = tubcommon.getStoreSession(ctx)
+        return storeSession.getOneItem(where='name=%(name)s',params={'name':self.original.name},itemType=blogentry.BlogEntry).addCallback(
+                lambda blogentry: BlogEntryResource(storeSession, avatar, blogentry))    
         
         
 class ResponseReturnPage(common.Page):
