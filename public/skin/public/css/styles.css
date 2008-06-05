@@ -1409,3 +1409,8 @@ span.sIFR-alternate {
 .highlightthis {
   float: right;
 }
+
+.lastComment, .numComments {
+  font-size: 80%;
+  color: #999;
+}

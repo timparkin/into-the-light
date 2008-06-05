@@ -12,9 +12,10 @@ import email.Utils
 from basiccms.web import common, rssfeed
 from basiccms import blogentry
 from notification import inotification
-from datetime import datetime
 import markdown
 from comments import icomments
+
+from datetime import *; from dateutil.relativedelta import *
 
 def filter_by_month_year(month_year):
     month,year = month_year.split('-')
@@ -128,6 +129,26 @@ def BlogRSS(ctx):
     return d
     
     
+def formatAgo(ago):
+    if ago.years > 0:
+        return 'last year'
+    if ago.months > 1:
+        return '%s months ago'%ago.months
+    if ago.months > 0:
+        return 'last month'
+    if ago.days > 7:
+        return 'last week'
+    if ago.days >1:
+        return '%s days ago'%ago.days
+    if ago.days >0:
+        return 'yesterday'
+    if ago.hours>0:
+        return '%s hours ago'%ago.hours
+    if ago.minutes>0:
+        return '%s minutes ago'%ago.minutes
+    if ago.seconds>0:
+        return '%s seconds ago'%ago.seconds
+    return ''
 
 class Blog(common.PagingMixin,common.Page):
 
@@ -178,6 +199,9 @@ class Blog(common.PagingMixin,common.Page):
     def render_blogentry(self, ctx, item):
         
         def gotComments(comments):
+            
+            comments = list(comments)
+            lastComment = comments[-1].posted
                 
             tag = ctx.tag
             itemDate = item.getAttributeValue("date", "en")
@@ -185,19 +209,28 @@ class Blog(common.PagingMixin,common.Page):
                 itemDate = itemDate['en']
             except:
                 pass
+
+            
+            ago = relativedelta(datetime.now(),lastComment)
+            
+            
             d = itemDate.day
             if 4 <= d <= 20 or 24 <= d <= 30:
                 suffix = "th"
             else:
                 suffix = ["st", "nd", "rd"][d % 10 - 1]
                 
+
+                
             m = itemDate.strftime('%B')
             y = itemDate.strftime('%Y')
             day = itemDate.strftime('%A')
-            itemDate = '%s%s %s %s'%(d,suffix,m,y)        
-            
+            itemDate = '%s%s %s %s'%(d,suffix,m,y)   
+
             tag.fillSlots("url", url.here.child(item.name))
             tag.fillSlots("date", itemDate)
+            tag.fillSlots("lastComment", lastComment.strftime('%d %b %y %H:%M'))
+            tag.fillSlots("ago", formatAgo(ago))
             tag.fillSlots("day", day)
             tag.fillSlots("title", item.getAttributeValue("title", "en"))
             tag.fillSlots("body", item.getAttributeValue("body", "en"))
@@ -253,29 +286,57 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
             return ResponseReturnPage(url.here.clear(), self.commentPostedSkin)
         return super(BlogEntryResource, self).renderHTTP(ctx)
 
-    def render_blogentry(self, ctx, data):
+    def render_blogentry(self, ctx, item):
         
-        tag = ctx.tag
-        itemDate = self.original.getAttributeValue("date", "en")
-        d = itemDate.day
-        if 4 <= d <= 20 or 24 <= d <= 30:
-            suffix = "th"
-        else:
-            suffix = ["st", "nd", "rd"][d % 10 - 1]
+        def gotComments(comments):
             
-        m = itemDate.strftime('%B')
-        y = itemDate.strftime('%Y')
-        day = itemDate.strftime('%A')
-        itemDate = '%s%s %s %s'%(d,suffix,m,y)        
-        
-        tag.fillSlots("url", url.here.child(self.original.id))
-        tag.fillSlots("date", itemDate)
-        tag.fillSlots("day", day)
-        tag.fillSlots("title", self.original.getAttributeValue("title", "en"))
-        tag.fillSlots("body", self.original.getAttributeValue("body", "en"))
-        tag.fillSlots("sidebar", self.original.getAttributeValue("sidebar", "en"))
+            comments = list(comments)
+            lastComment = comments[-1].posted
+                
+            tag = ctx.tag
+            itemDate = item.getAttributeValue("date", "en")
+            try:
+                itemDate = itemDate['en']
+            except:
+                pass
+            ago = relativedelta(datetime.now(),lastComment)
+            d = itemDate.day
+            if 4 <= d <= 20 or 24 <= d <= 30:
+                suffix = "th"
+            else:
+                suffix = ["st", "nd", "rd"][d % 10 - 1]
+                
+
+                
+            m = itemDate.strftime('%B')
+            y = itemDate.strftime('%Y')
+            day = itemDate.strftime('%A')
+            itemDate = '%s%s %s %s'%(d,suffix,m,y)   
+
             
-        return tag
+            tag.fillSlots("url", url.here.child(item.name))
+            tag.fillSlots("date", itemDate)
+            tag.fillSlots("lastComment", lastComment.strftime('%d %b %y %H:%M'))
+            tag.fillSlots("ago",formatAgo(ago))
+            tag.fillSlots("day", day)
+            tag.fillSlots("title", item.getAttributeValue("title", "en"))
+            tag.fillSlots("body", item.getAttributeValue("body", "en"))
+            tag.fillSlots("sidebar", item.getAttributeValue("sidebar", "en"))
+            comments = list(comments)
+            commentcount = len(comments)
+            if commentcount == 0:
+                tag.fillSlots("comments", 'No Comments')
+            elif commentcount == 1:
+                tag.fillSlots("comments", '1 Comment')
+            else:
+                tag.fillSlots("comments", '%s Comments'%commentcount)
+                
+            return tag
+            
+        storeSession = tubcommon.getStoreSession(ctx) 
+        d = self.avatar.realm.commentsService.getCommentsForItem(storeSession, item)        
+        d.addCallback(gotComments)
+        return d
             
 
     
