@@ -293,7 +293,12 @@ class Blog(common.PagingMixin,common.Page):
         def gotComments(comments):
             
             comments = list(comments)
-            lastComment = comments[-1].posted
+            try:
+                lastComment = comments[-1].posted
+                ago = relativedelta(datetime.now(),lastComment)
+            except IndexError:
+                lastComment = None
+                ago = None
                 
             tag = ctx.tag
             itemDate = item.getAttributeValue("date", "en")
@@ -302,10 +307,6 @@ class Blog(common.PagingMixin,common.Page):
             except:
                 pass
 
-            
-            ago = relativedelta(datetime.now(),lastComment)
-            
-            
             d = itemDate.day
             if 4 <= d <= 20 or 24 <= d <= 30:
                 suffix = "th"
@@ -321,8 +322,13 @@ class Blog(common.PagingMixin,common.Page):
 
             tag.fillSlots("url", url.here.child(item.name))
             tag.fillSlots("date", itemDate)
-            tag.fillSlots("lastComment", lastComment.strftime('%d %b %y %H:%M'))
-            tag.fillSlots("ago", formatAgo(ago))
+            if lastComment is not None:
+                tag.fillSlots("lastComment", lastComment.strftime('%d %b %y %H:%M'))
+                tag.fillSlots("ago", formatAgo(ago))
+            else:
+                tag.fillSlots("lastComment", '-')
+                tag.fillSlots("ago", '-')
+                
             tag.fillSlots("day", day)
             tag.fillSlots("title", item.getAttributeValue("title", "en"))
             tag.fillSlots("body", item.getAttributeValue("body", "en"))
@@ -383,7 +389,12 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
         def gotComments(comments):
             
             comments = list(comments)
-            lastComment = comments[-1].posted
+            try:
+                lastComment = comments[-1].posted
+                ago = relativedelta(datetime.now(),lastComment)
+            except IndexError:
+                lastComment = None
+                ago = None
                 
             tag = ctx.tag
             itemDate = item.getAttributeValue("date", "en")
@@ -391,7 +402,6 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
                 itemDate = itemDate['en']
             except:
                 pass
-            ago = relativedelta(datetime.now(),lastComment)
             d = itemDate.day
             if 4 <= d <= 20 or 24 <= d <= 30:
                 suffix = "th"
@@ -408,8 +418,12 @@ class BlogEntryResource(formal.ResourceMixin, common.Page):
             
             tag.fillSlots("url", url.here.child(item.name))
             tag.fillSlots("date", itemDate)
-            tag.fillSlots("lastComment", lastComment.strftime('%d %b %y %H:%M'))
-            tag.fillSlots("ago",formatAgo(ago))
+            if lastComment is not None:
+                tag.fillSlots("lastComment", lastComment.strftime('%d %b %y %H:%M'))
+                tag.fillSlots("ago", formatAgo(ago))
+            else:
+                tag.fillSlots("lastComment", '-')
+                tag.fillSlots("ago", '-')
             tag.fillSlots("day", day)
             tag.fillSlots("title", item.getAttributeValue("title", "en"))
             tag.fillSlots("body", item.getAttributeValue("body", "en"))
