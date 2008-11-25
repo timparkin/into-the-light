@@ -15,6 +15,22 @@ from twisted.internet import defer
 from ecommerce.salesorder.manager import SalesOrder, SalesOrderItem
 from ecommerce.salesorder.util import createSalesOrderItem
 
+class HumanCheckValidator(object):
+    """
+    A pointless example that checks a specific word, 'silly', is entered.
+    """
+    implements(formal.iformal.IValidator)
+
+    word = u'ward'
+
+    def validate(self, field, value):
+        if value is None:
+            return
+        if value.lower() != self.word.lower():
+            raise formal.FieldValidationError(u'You must enter \'%s\''%self.word)
+
+
+
 
 class BasketPage(formal.ResourceMixin, common.Page):
 
@@ -67,6 +83,8 @@ class BasketPage(formal.ResourceMixin, common.Page):
         form.addField('billingPostcode', formal.String(strip=True), label='Postcode')
         form.addField('billingCountry', formal.String(strip=True), label='Country')
         form.addField('message', formal.String(strip=True), widgetFactory=formal.TextArea)
+        form.addField('humanCheck', formal.String(required=True,validators=[HumanCheckValidator()]), description="Enter David's Surname")
+
         form.addAction(self._placeOrder, label="Send Enquiry")
         return form
 

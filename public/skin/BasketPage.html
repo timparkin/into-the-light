@@ -4,7 +4,17 @@
 
 <n:invisible xmlns:n="http://nevow.com/ns/nevow/0.1" n:render="inherit Skin.html">
   <n:invisible n:pattern="title">Enquiry Basket</n:invisible>
-<n:invisible n:pattern="headextra" />
+<n:invisible n:pattern="headextra">
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+$(document).ready(function() {
+  $('#details-humanCheck-field').hide();
+  $('#details-humanCheck').val('Ward');
+});
+//--><!]]>
+</script>
+</n:invisible>
+    
 <n:invisible n:pattern="admin" />
 
 <n:invisible n:pattern="page-content">

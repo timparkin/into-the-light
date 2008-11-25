@@ -21,6 +21,18 @@
   <script src="/skin/js/sifr.js" type="text/javascript"></script>
   <script src="/skin/js/sifr-config.js" type="text/javascript"></script>  
   <n:slot name="headextra" />
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+$(document).ready(function() {
+  $('#form-humanCheck-field').hide();
+  $('#form-humanCheck').val('Ward');
+  $('#subscribe-humanCheck-field').hide();
+  $('#subscribe-humanCheck').val('Ward');
+});
+//--><!]]>
+</script>
+
+
   
 </head>
 
@@ -65,6 +77,9 @@
           </div>
           <div class="clearfix">
 <label  for="form-email">Email</label><input type="text" name="email" id="email" />
+          </div>
+          <div class="clearfix" id="subscribe-humanCheck-field">
+<label  for="subscribe-humanCheck">David's Surname</label><input type="text" name="subscribe-humanCheck" id="subscribe-humanCheck" />
           </div>
           <input type="submit" name="submit" value="click here to subscribe" class="action" />
         </form>

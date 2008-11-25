@@ -21,6 +21,7 @@ class Comment(objstore.Item):
         relatesTo = k.pop('relatesTo')
         authorName = k.pop('authorName')
         authorEmail = k.pop('authorEmail')
+        humanCheck = k.pop('humanCheck')
         comment = k.pop('comment')
         relatesToCommentId = k.pop('relatesToCommentId')
         super(Comment, self).__init__(*a, **k)

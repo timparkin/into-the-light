@@ -145,7 +145,8 @@ def addProductFields(form, forCreation=False, restWriter=None, hasOptions=False)
         (5, '*****'),
         ] 
     
-    metadata.add( formal.Field('rating', formal.Integer(), formal.widgetFactory(formal.SelectChoice, options=data_strings)) )
+    metadata.add( formal.Field('rating', formal.Integer() ) )
+    #metadata.add( formal.Field('rating', formal.Integer(), formal.widgetFactory(formal.SelectChoice, options=data_strings)) )
 
 
     description = formal.Group('description')

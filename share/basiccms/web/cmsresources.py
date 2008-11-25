@@ -1,7 +1,7 @@
 from cStringIO import StringIO
 import syck
 import email.Utils
-from zope.interface import Interface
+from zope.interface import Interface,implements
 from twisted.internet import defer
 from nevow import inevow, url, tags as T, flat, stan
 from crux import skin, icrux
@@ -43,6 +43,19 @@ def parseTemplateString(template):
     return args, kwargs
 
 
+class HumanCheckValidator(object):
+    """
+    A pointless example that checks a specific word, 'ward', is entered.
+    """
+    implements(formal.iformal.IValidator)
+
+    word = u'ward'
+
+    def validate(self, field, value):
+        if value is None:
+            return
+        if value.lower() != self.word.lower():
+            raise formal.FieldValidationError(u'You must enter \'%s\''%self.word)
 
 class PageResource(common.PagingMixin,common.CMSResource):
 
@@ -208,6 +221,7 @@ class FormPageResource(formal.ResourceMixin, common.CMSResource):
                 form.addField(field['name'], fieldType, label=field['label'], widgetFactory=formal.widgetFactory(getattr(formal,field['widget']),options=field['options']))
             if field['widget'] == 'Hidden':
                 form.data[field['name']] = field['options']
+        form.addField('humanCheck', formal.String(required=True,validators=[HumanCheckValidator()]), description="Enter David's Surname")
         form.addAction(self._submit)
         return form          
  

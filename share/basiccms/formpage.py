@@ -30,6 +30,7 @@ class FormPage(PagishBase):
         Attribute('sendToEmail', forms.String()),
         Attribute('submitterEmailFieldName', forms.String(strip=True)),
         Attribute('storeData', forms.Boolean()),
+        Attribute('humanCheck', forms.Boolean()),
         Attribute('submittedBody', forms.RichTextType(required=True),
             widgetFactory=forms.widgetFactory(richtextarea.RichTextArea, parsers=parsers,itemTypes=[fragment.Fragment,news.NewsItem]),
             classes=['imagepicker','preview','itemselector'],
